@@ -1,0 +1,107 @@
+/* Designed Electrics — scroll reveals.
+   Declarative on purpose: every reveal is a CSS animation whose FINAL frame is
+   the visible state, so content can never be stranded hidden by a host that
+   withholds scroll events, rAF or timers. Where the browser supports
+   scroll-driven timelines the same keyframes are driven by the element's own
+   position in the viewport; everywhere else they run once on load. */
+
+/* Motion owns reveals once it loads; "wait" holds them hidden until then. */
+[data-de-fm] [data-r] { animation: none !important; }
+[data-de-fm="wait"] [data-r] { opacity: 0; }
+
+@keyframes de-r-up   { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes de-r-snap { from { opacity: 0; transform: translateY(14px); } 45% { opacity: 1; } to { opacity: 1; transform: translateY(0); } }
+@keyframes de-r-mask { from { clip-path: inset(0 101% -12% 0); } to { clip-path: inset(0 -10% -12% 0); } }
+@keyframes de-r-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+[data-r] {
+  animation: de-r-up 0.7s cubic-bezier(.16, 1, .3, 1) both;
+}
+[data-r="snap"] { animation-name: de-r-snap; animation-duration: 0.34s; }
+[data-r="mask"] { animation-name: de-r-mask; animation-duration: 0.85s; }
+[data-r="draw"] { animation-name: de-r-draw; animation-duration: 0.8s; transform-origin: left center; }
+
+[data-r][data-r-i="1"] { animation-delay: 0.09s; }
+[data-r][data-r-i="2"] { animation-delay: 0.18s; }
+[data-r][data-r-i="3"] { animation-delay: 0.27s; }
+[data-r][data-r-i="4"] { animation-delay: 0.36s; }
+[data-r][data-r-i="5"] { animation-delay: 0.45s; }
+[data-r][data-r-i="6"] { animation-delay: 0.54s; }
+[data-r][data-r-i="7"] { animation-delay: 0.63s; }
+[data-r="snap"][data-r-i="1"] { animation-delay: 0.055s; }
+[data-r="snap"][data-r-i="2"] { animation-delay: 0.11s; }
+[data-r="snap"][data-r-i="3"] { animation-delay: 0.165s; }
+[data-r="snap"][data-r-i="4"] { animation-delay: 0.22s; }
+[data-r="snap"][data-r-i="5"] { animation-delay: 0.275s; }
+[data-r="snap"][data-r-i="6"] { animation-delay: 0.33s; }
+[data-r="snap"][data-r-i="7"] { animation-delay: 0.385s; }
+
+/* First screen: quick entrance so page changes feel immediate. */
+[data-de-sec]:first-of-type [data-r] { animation-duration: .38s; }
+[data-de-sec]:first-of-type [data-r][data-r-i="1"] { animation-delay: .04s; }
+[data-de-sec]:first-of-type [data-r][data-r-i="2"] { animation-delay: .08s; }
+[data-de-sec]:first-of-type [data-r][data-r-i="3"] { animation-delay: .12s; }
+[data-de-sec]:first-of-type [data-r][data-r-i]:not([data-r-i="1"]):not([data-r-i="2"]):not([data-r-i="3"]) { animation-delay: .16s; }
+
+@supports (animation-timeline: view()) {
+  [data-r] {
+    animation-timeline: view();
+    animation-range: entry 6% entry 62%;
+    animation-delay: 0s;
+  }
+  /* Stagger reads off position in the entry band, since delays do not apply
+     to a scroll-driven timeline. */
+  [data-r][data-r-i="1"] { animation-range: entry 12% entry 68%; }
+  [data-r][data-r-i="2"] { animation-range: entry 18% entry 74%; }
+  [data-r][data-r-i="3"] { animation-range: entry 24% entry 80%; }
+  [data-r][data-r-i="4"] { animation-range: entry 30% entry 86%; }
+  [data-r][data-r-i="5"] { animation-range: entry 36% entry 92%; }
+  [data-r][data-r-i="6"] { animation-range: entry 42% entry 98%; }
+  [data-r][data-r-i="7"] { animation-range: entry 48% entry 100%; }
+
+  /* First screen: its entry phase is already complete at load, so a view
+     timeline would skip the opening outright. Keep it time-based. */
+  [data-de-sec]:first-of-type [data-r] {
+    animation-timeline: auto;
+    animation-range: normal;
+  }
+  [data-de-sec]:first-of-type [data-r][data-r-i="1"] { animation-delay: .04s; }
+  [data-de-sec]:first-of-type [data-r][data-r-i="2"] { animation-delay: .08s; }
+  [data-de-sec]:first-of-type [data-r][data-r-i="3"] { animation-delay: .12s; }
+
+  [data-de-progress] {
+    animation: de-r-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+  [data-de-track] {
+    animation: de-r-progress linear both;
+    animation-timeline: view();
+    animation-range: entry 30% cover 70%;
+  }
+  [data-de-node] {
+    animation: de-r-node linear both;
+    animation-timeline: view();
+    animation-range: entry 30% cover 70%;
+  }
+}
+@keyframes de-r-progress { from { width: 0%; } to { width: 100%; } }
+@keyframes de-r-node { from { left: 0%; } to { left: 100%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-r] { animation: none; }
+}
+
+/* Service "What it covers" tiles → scope drop-downs */
+[data-de-scope] { cursor: pointer; transition: background-color .3s cubic-bezier(.16,1,.3,1), color .3s cubic-bezier(.16,1,.3,1); }
+[data-de-scope]:hover:not([aria-expanded="true"]) { background: var(--color-accent-100) !important; }
+[data-de-scope]:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -6px; }
+[data-de-scope] [data-de-scope-cue] { color: var(--color-neutral-700); transition: color .25s; }
+[data-de-scope]:hover [data-de-scope-cue] { color: var(--color-accent-700); }
+[data-de-scope] [data-de-scope-plus] { transition: transform .4s cubic-bezier(.16,1,.3,1); }
+[data-de-scope][aria-expanded="true"] { background: var(--color-text) !important; color: var(--color-bg); }
+[data-de-scope][aria-expanded="true"] h3, [data-de-scope][aria-expanded="true"] p { color: inherit; }
+[data-de-scope][aria-expanded="true"] > div:first-child, [data-de-scope][aria-expanded="true"] [data-de-scope-cue] { color: var(--color-accent-500); }
+[data-de-scope][aria-expanded="true"] [data-de-scope-plus] { transform: rotate(45deg); }
+
+/* quote form: fields left empty on send */
+[data-de-missing] { outline: 2px solid var(--color-accent-700); outline-offset: 4px; }
