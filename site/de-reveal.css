@@ -113,6 +113,7 @@
 @media (min-width: 900px) {
   [data-de-heroshot][data-de-heroshot-side="right"] { left: 50%; }
   [data-de-herodrop]:has([data-de-heroshot-side="right"]) > div:first-child { max-width: calc(50% - clamp(16px, 3vw, 48px)) !important; margin-left: 0 !important; margin-right: 0 !important; }
+  [data-de-herodrop]:has([data-de-heroshot-side="right"]) h1 { font-size: clamp(40px, 4.6vw, 84px) !important; }
   [data-de-herodrop]:has([data-de-heroshot-side="right"]) [data-de-heroscrim] { display: none; }
 }
 
