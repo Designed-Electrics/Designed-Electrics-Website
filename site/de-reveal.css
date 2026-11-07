@@ -105,3 +105,6 @@
 
 /* quote form: fields left empty on send */
 [data-de-missing] { outline: 2px solid var(--color-accent-700); outline-offset: 4px; }
+
+/* crosshair cursor removed 07/11/2026 */
+[data-de-cross] { display: none !important; }

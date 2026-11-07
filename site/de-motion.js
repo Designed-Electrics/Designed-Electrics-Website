@@ -31,7 +31,7 @@ function tw(el, kf, o = {}) {
 export function initMotion(root, opts = {}) {
   if (!root) return () => {};
   const level = opts.level || 'full';
-  const wantCross = (opts.crosshair !== false) && level !== 'off';
+  const wantCross = false; // crosshair cursor removed 07/11/2026 at Liam's request
   const cleanups = [];
   const on = (t, ev, fn, o) => { t.addEventListener(ev, fn, o); cleanups.push(() => t.removeEventListener(ev, fn, o)); };
   const scale = level === 'subtle' ? 0.5 : 1;
