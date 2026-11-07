@@ -16,14 +16,14 @@
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<script src="/support.js"></script>
+<script src="/support.js?v=8fe7df74"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="/_ds/modernist-05b4ba48-5723-4e5a-a4a9-e223f4548d0a/styles.css">
-<script src="/_ds/modernist-05b4ba48-5723-4e5a-a4a9-e223f4548d0a/_ds_bundle.js"></script>
-<link rel="stylesheet" href="/de-reveal.css?v=3">
+<link rel="stylesheet" href="/_ds/modernist-05b4ba48-5723-4e5a-a4a9-e223f4548d0a/styles.css?v=cf9fcf75">
+<script src="/_ds/modernist-05b4ba48-5723-4e5a-a4a9-e223f4548d0a/_ds_bundle.js?v=6138a841"></script>
+<link rel="stylesheet" href="/de-reveal.css?v=973ffbfb">
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/motion@11.18.2/+esm">
 <script>(function(){var h=document.documentElement;h.setAttribute('data-de-fm','wait');setTimeout(function(){if(h.getAttribute('data-de-fm')==='wait')h.removeAttribute('data-de-fm');},2500);})();</script>
 <style>
@@ -495,7 +495,7 @@ class Component extends DCLogic {
   }
   boot() {
     const token = (this.token = {});
-    import('/de-motion.js').then(m => {
+    import('/de-motion.js?v=d2e202a3').then(m => {
       if (this.token !== token) return;
       this.stop = m.initMotion(document.querySelector('[data-de-root]'), {
         level: this.props.motionLevel ?? 'full',

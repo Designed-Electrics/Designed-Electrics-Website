@@ -24,7 +24,9 @@ Designed in Claude Design, then cleaned on 03/11/2026 before first deploy:
 
 ## Changing the site
 
-Edit the files in `site/`, commit and push to `main`, then redeploy. The pages load React, Babel and Motion from unpkg and jsdelivr at runtime.
+Edit the files in `site/`, run `python3 tools/stamp.py`, then commit and push to `main`. Cloudflare deploys every push to `main` by itself, usually inside a minute.
+
+`tools/stamp.py` tags the shared CSS and JS links with a fingerprint of each file. Browsers keep CSS and JS for 4 hours, so without a new tag a changed file is not seen until the old copy expires. The pages load React, Babel and Motion from unpkg and jsdelivr at runtime.
 
 ## Never put in this repo
 

@@ -115,3 +115,13 @@
   [data-de-herodrop]:has([data-de-heroshot-side="right"]) > div:first-child { max-width: calc(50% - clamp(16px, 3vw, 48px)) !important; margin-left: 0 !important; margin-right: 0 !important; }
   [data-de-herodrop]:has([data-de-heroshot-side="right"]) [data-de-heroscrim] { display: none; }
 }
+
+/* phones: photo runs full width under the hero text, full colour, no wash */
+@media (max-width: 899px) {
+  [data-de-heroshot][data-de-heroshot-side="right"] {
+    position: relative; inset: auto; z-index: 0;
+    height: clamp(280px, 80vw, 460px);
+    margin: clamp(28px, 4vh, 40px) calc(-1 * clamp(16px, 4vw, 56px)) calc(-1 * clamp(32px, 5vh, 56px));
+  }
+  [data-de-herodrop]:has([data-de-heroshot-side="right"]) [data-de-heroscrim] { display: none; }
+}
