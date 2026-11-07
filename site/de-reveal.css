@@ -147,3 +147,8 @@
 /* scope panels take a full row inside the wrapping tile list */
 [data-de-scope-panel] { flex: 1 1 100% !important; }
 @media (max-width: 899px) { [data-de-herovid] video { object-fit: contain !important; } }
+
+/* Services list icons: Designed Orange line icon on an Anvil square; flips on row hover */
+[data-de-svcicon] { flex: none; align-self: center; display: grid; place-items: center; width: clamp(44px, 4.4vw, 64px); height: clamp(44px, 4.4vw, 64px); background: #18171C; color: #F35402; transition: background-color .3s cubic-bezier(.16,1,.3,1), color .3s cubic-bezier(.16,1,.3,1), transform .3s cubic-bezier(.16,1,.3,1); }
+[data-de-svcicon] svg { width: 58%; height: 58%; }
+[data-de-row]:hover [data-de-svcicon], a:focus-visible [data-de-svcicon] { background: #F35402; color: #18171C; transform: rotate(-4deg); }
