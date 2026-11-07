@@ -130,10 +130,11 @@
 [data-de-herowash] { display: none !important; }
 @media (min-width: 900px) {
   /* panel takes the video's own 9:16 shape, so the whole frame shows with no zoom */
-  [data-de-herovid] { left: auto !important; right: 0 !important; width: auto !important; aspect-ratio: 9 / 16; }
-  [data-de-sec="Hero"]:has([data-de-herovid]) { min-height: min(86vh, 860px); display: flex; align-items: center; }
+  /* panel half the width on a full-height banner: close to the clip's own shape, so only a sliver is trimmed top and bottom */
+  [data-de-herovid] { left: 50% !important; right: 0 !important; width: auto !important; aspect-ratio: auto; }
+  [data-de-sec="Hero"]:has([data-de-herovid]) { min-height: min(calc(100vh - 60px), 1040px); display: flex; align-items: center; }
   [data-de-herotext] { width: 100%; }
-  [data-de-herotext] { max-width: calc(100% - min(86vh, 860px) * 9 / 16 - clamp(24px, 4vw, 64px)) !important; margin-left: 0 !important; margin-right: 0 !important; }
+  [data-de-herotext] { max-width: calc(50% - clamp(24px, 4vw, 64px)) !important; margin-left: 0 !important; margin-right: 0 !important; }
   [data-de-herotext] h1 { font-size: clamp(40px, 3.8vw, 76px) !important; }
 }
 @media (max-width: 899px) {
