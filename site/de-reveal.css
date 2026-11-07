@@ -108,3 +108,6 @@
 
 /* crosshair cursor removed 07/11/2026 */
 [data-de-cross] { display: none !important; }
+
+/* hero photo on the right on wide screens, full width behind the text on phones */
+@media (min-width: 900px) { [data-de-heroshot][data-de-heroshot-side="right"] { left: 42%; } }
