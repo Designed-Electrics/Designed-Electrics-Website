@@ -141,3 +141,6 @@
   [data-de-herovid] { order: 2; position: relative !important; inset: auto !important; height: min(125vw, 640px);
     margin: clamp(28px, 4vh, 40px) calc(-1 * clamp(16px, 4vw, 56px)) calc(-1 * clamp(40px, 6vh, 72px)); }
 }
+
+/* scope panels take a full row inside the wrapping tile list */
+[data-de-scope-panel] { flex: 1 1 100% !important; }
