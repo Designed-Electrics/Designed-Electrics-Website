@@ -129,18 +129,20 @@
 /* Home hero: portrait video in its own panel, never stretched. Right half on wide screens, under the text on phones. */
 [data-de-herowash] { display: none !important; }
 @media (min-width: 900px) {
-  [data-de-herovid] { left: 50% !important; }
+  /* panel takes the video's own 9:16 shape, so the whole frame shows with no zoom */
+  [data-de-herovid] { left: auto !important; right: 0 !important; width: auto !important; aspect-ratio: 9 / 16; }
   [data-de-sec="Hero"]:has([data-de-herovid]) { min-height: min(86vh, 860px); display: flex; align-items: center; }
   [data-de-herotext] { width: 100%; }
-  [data-de-herotext] { max-width: calc(50% - clamp(16px, 3vw, 48px)) !important; margin-left: 0 !important; margin-right: 0 !important; }
+  [data-de-herotext] { max-width: calc(100% - min(86vh, 860px) * 9 / 16 - clamp(24px, 4vw, 64px)) !important; margin-left: 0 !important; margin-right: 0 !important; }
   [data-de-herotext] h1 { font-size: clamp(40px, 3.8vw, 76px) !important; }
 }
 @media (max-width: 899px) {
   [data-de-sec="Hero"]:has([data-de-herovid]) { display: flex; flex-direction: column; }
   [data-de-herotext] { order: 1; }
-  [data-de-herovid] { order: 2; position: relative !important; inset: auto !important; height: min(125vw, 640px);
+  [data-de-herovid] { order: 2; position: relative !important; inset: auto !important; aspect-ratio: 9 / 16; height: auto; max-height: 82vh; background: var(--color-text) !important;
     margin: clamp(28px, 4vh, 40px) calc(-1 * clamp(16px, 4vw, 56px)) calc(-1 * clamp(40px, 6vh, 72px)); }
 }
 
 /* scope panels take a full row inside the wrapping tile list */
 [data-de-scope-panel] { flex: 1 1 100% !important; }
+@media (max-width: 899px) { [data-de-herovid] video { object-fit: contain !important; } }
