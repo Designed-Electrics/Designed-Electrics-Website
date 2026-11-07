@@ -125,3 +125,19 @@
   }
   [data-de-herodrop]:has([data-de-heroshot-side="right"]) [data-de-heroscrim] { display: none; }
 }
+
+/* Home hero: portrait video in its own panel, never stretched. Right half on wide screens, under the text on phones. */
+[data-de-herowash] { display: none !important; }
+@media (min-width: 900px) {
+  [data-de-herovid] { left: 50% !important; }
+  [data-de-sec="Hero"]:has([data-de-herovid]) { min-height: min(86vh, 860px); display: flex; align-items: center; }
+  [data-de-herotext] { width: 100%; }
+  [data-de-herotext] { max-width: calc(50% - clamp(16px, 3vw, 48px)) !important; margin-left: 0 !important; margin-right: 0 !important; }
+  [data-de-herotext] h1 { font-size: clamp(40px, 3.8vw, 76px) !important; }
+}
+@media (max-width: 899px) {
+  [data-de-sec="Hero"]:has([data-de-herovid]) { display: flex; flex-direction: column; }
+  [data-de-herotext] { order: 1; }
+  [data-de-herovid] { order: 2; position: relative !important; inset: auto !important; height: min(125vw, 640px);
+    margin: clamp(28px, 4vh, 40px) calc(-1 * clamp(16px, 4vw, 56px)) calc(-1 * clamp(40px, 6vh, 72px)); }
+}
