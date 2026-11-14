@@ -93,7 +93,7 @@
 
   <section data-screen-label="01 Hero" data-de-sec="Hero" style="position: relative; overflow: hidden; padding: clamp(120px, 15vh, 190px) clamp(16px, 4vw, 56px) clamp(40px, 6vh, 72px); border-bottom: 2px solid var(--color-divider);">
     <div data-de-herovid="1" aria-hidden="true" style="position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--color-surface);">
-      <video ref="{{ heroVideoRef }}" src="/assets/hero-reel-portrait.mp4" poster="/assets/hero-reel-portrait-poster.jpg" loop="{{ true }}" autoPlay="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; opacity: 0; transition: opacity .8s ease;"></video>
+      <video ref="{{ heroVideoRef }}" src="/assets/hero-reel-v2.mp4" poster="/assets/hero-reel-v2-poster.jpg" loop="{{ true }}" autoPlay="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; opacity: 0; transition: opacity .8s ease;"></video>
       <div data-de-herowash="1" style="position: absolute; inset: 0; background: linear-gradient(100deg, color-mix(in srgb, var(--color-bg) 78%, transparent) 0%, color-mix(in srgb, var(--color-bg) 45%, transparent) 45%, color-mix(in srgb, var(--color-bg) 0%, transparent) 100%);"></div>
     </div>
     <div data-de-herotext="1" style="position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); align-items: end; max-width: 1560px; margin: 0 auto;">
@@ -337,7 +337,7 @@
   </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;heroVideo&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/hero-reel-portrait.mp4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;crosshair&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;motionLevel&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;full&quot;,&quot;subtle&quot;,&quot;off&quot;],&quot;default&quot;:&quot;full&quot;,&quot;tsType&quot;:&quot;'full' | 'subtle' | 'off'&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroVideo&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/hero-reel-v2.mp4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;crosshair&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;motionLevel&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;full&quot;,&quot;subtle&quot;,&quot;off&quot;],&quot;default&quot;:&quot;full&quot;,&quot;tsType&quot;:&quot;'full' | 'subtle' | 'off'&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
 class Component extends DCLogic {
   componentDidMount() { this.boot(); }
   componentDidUpdate(prev) {
@@ -357,7 +357,7 @@ class Component extends DCLogic {
   }
   componentWillUnmount() { this.token = null; if (this.stop) this.stop(); }
   renderVals() {
-    const src = (this.props.heroVideo ?? 'assets/hero-reel-portrait.mp4').trim();
+    const src = (this.props.heroVideo ?? 'assets/hero-reel-v2.mp4').trim();
     return {
       heroVideoSrc: src || undefined,
       heroVideoRef: el => {
