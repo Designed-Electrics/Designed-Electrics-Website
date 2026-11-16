@@ -461,7 +461,7 @@ class Component extends DCLogic {
   }
   boot() {
     const token = (this.token = {});
-    import('/de-motion.js?v=d2e202a3').then(m => {
+    import('/de-motion.js?v=aa4e726f').then(m => {
       if (this.token !== token) return;
       this.stop = m.initMotion(document.querySelector('[data-de-root]'), {
         level: this.props.motionLevel ?? 'full',

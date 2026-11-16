@@ -143,7 +143,7 @@
         <div data-r="snap" data-r-i="1" data-de-tilt="1" style="background: var(--color-bg); padding: clamp(20px, 3vw, 34px);">
           <div style="font-family: var(--font-heading); font-weight: 800; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 18px;">Solar and battery</div>
           <h3 style="font-size: clamp(19px, 2vw, 26px); text-transform: uppercase; letter-spacing: -0.02em; margin: 0 0 10px;">Rooftop to utility scale</h3>
-          <p style="margin: 0; font-size: 15px; line-height: 1.6; max-width: 60ch;">Installation on large-scale solar farms, and commissioning of solar PV and battery energy storage systems. Clean Energy Council solar accreditation S6164924.</p>
+          <p style="margin: 0; font-size: 15px; line-height: 1.6; max-width: 60ch;">Installation on large-scale solar farms, and commissioning of solar PV and battery energy storage systems. Solar Accreditation Australia (SAA) accreditation S6164924.</p>
         </div>
         <div data-r="snap" data-r-i="2" data-de-tilt="1" style="background: var(--color-bg); padding: clamp(20px, 3vw, 34px);">
           <div style="font-family: var(--font-heading); font-weight: 800; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 18px;">Mining</div>
@@ -207,7 +207,7 @@
           <span style="font-family: var(--font-heading); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;">Insurance</span><span>Public liability insured to $20,000,000</span>
         </div>
         <div data-r="up" data-r-i="3" style="display: flex; justify-content: space-between; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--color-divider); font-size: 14px;">
-          <span style="font-family: var(--font-heading); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;">Accreditations</span><span>Clean Energy Council solar accreditation S6164924</span>
+          <span style="font-family: var(--font-heading); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;">Accreditations</span><span>Solar Accreditation Australia (SAA) accreditation S6164924</span>
         </div>
         <div data-r="up" data-r-i="4" style="display: flex; justify-content: space-between; gap: 20px; padding: 16px 0; font-size: 14px;">
           <span style="font-family: var(--font-heading); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;">Service area</span><span>Perth Hills and Avon Valley. Mundaring to Northam, Toodyay and York.</span>
@@ -291,7 +291,7 @@ class Component extends DCLogic {
   }
   boot() {
     const token = (this.token = {});
-    import('/de-motion.js?v=d2e202a3').then(m => {
+    import('/de-motion.js?v=aa4e726f').then(m => {
       if (this.token !== token) return;
       this.stop = m.initMotion(document.querySelector('[data-de-root]'), {
         level: this.props.motionLevel ?? 'full',

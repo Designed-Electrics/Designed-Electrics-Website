@@ -364,6 +364,8 @@ export function initMotion(root, opts = {}) {
   /* ── quote form: rules fill as fields are answered ──────── */
   const form = root.querySelector('[data-de-form]');
   if (form) {
+    const ENQUIRY_URL = 'https://vlpwgqpphagveekajhmo.supabase.co/functions/v1/website-enquiry';
+    const formStart = Date.now();
     const meter = root.querySelector('[data-de-meter]');
     const pcts = Array.from(root.querySelectorAll('[data-de-pct]'));
     const fields = Array.from(form.querySelectorAll('[data-de-required]'));
@@ -411,23 +413,59 @@ export function initMotion(root, opts = {}) {
         return;
       }
       if (err) err.remove();
-      // No server behind the site yet: open a filled-in email to the business.
+      // Send to the enquiry server. If it cannot be reached, fall back to a filled-in email so nothing is lost.
       const val = n => Array.from(form.querySelectorAll(`[name="${n}"]`)).filter(x => (x.type === 'checkbox' || x.type === 'radio') ? x.checked : true)
         .map(x => (x.type === 'checkbox' || x.type === 'radio') ? (x.parentElement.textContent || x.value).trim() : String(x.value || '').trim()).filter(Boolean).join(', ');
-      const body = [
-        'Needs: ' + val('need'), 'Property: ' + val('property'), 'Suburb: ' + val('suburb'), 'Timing: ' + val('timing'), '',
-        'The job:', val('detail'), '', 'Name: ' + val('name'), 'Phone: ' + val('phone'), 'Email: ' + (val('email') || 'not given'),
-      ].join('\n');
-      const subject = 'Quote request: ' + (val('suburb') || 'website') + ' (' + (val('need') || 'general') + ')';
-      window.location.href = 'mailto:liam@designedelectrics.com.au?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-      const top = form.getBoundingClientRect().top + window.scrollY - 140;
-      tw(form, { opacity: 0, y: -12 }, { duration: 0.3 });
-      setTimeout(() => {
-        form.style.display = 'none';
-        ok.style.display = 'block';
-        tw(ok, { opacity: [0, 1], y: [24, 0] }, { duration: 0.6 });
-        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-      }, 300);
+      const codes = n => Array.from(form.querySelectorAll(`[name="${n}"]:checked`)).map(x => x.value);
+      const btn = form.querySelector('[type="submit"]');
+      const btnText = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      const showDone = () => {
+        const top = form.getBoundingClientRect().top + window.scrollY - 140;
+        tw(form, { opacity: 0, y: -12 }, { duration: 0.3 });
+        setTimeout(() => {
+          form.style.display = 'none';
+          ok.style.display = 'block';
+          tw(ok, { opacity: [0, 1], y: [24, 0] }, { duration: 0.6 });
+          window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        }, 300);
+      };
+      const viaEmail = () => {
+        const body = [
+          'Needs: ' + val('need'), 'Property: ' + val('property'), 'Suburb: ' + val('suburb'), 'Timing: ' + val('timing'), '',
+          'The job:', val('detail'), '', 'Name: ' + val('name'), 'Phone: ' + val('phone'), 'Email: ' + (val('email') || 'not given'),
+        ].join('\n');
+        const subject = 'Quote request: ' + (val('suburb') || 'website') + ' (' + (val('need') || 'general') + ')';
+        const set = (sel, t) => { const el = ok.querySelector(sel); if (el) el.textContent = t; };
+        set('[data-de-ok-kicker]', '● One more step');
+        set('[data-de-ok-title]', 'Press send in your email.');
+        const pb = ok.querySelector('[data-de-ok-body]');
+        if (pb) pb.innerHTML = 'Your email app has opened with your details filled in. Press send and it comes straight to us. If it did not open, email <a href="mailto:liam@designedelectrics.com.au" style="color: inherit;">liam@designedelectrics.com.au</a>. If it is urgent, call <a href="tel:0438593586" style="color: inherit;">0438 593 586</a>.';
+        window.location.href = 'mailto:liam@designedelectrics.com.au?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        showDone();
+      };
+      const payload = {
+        need: codes('need'), needText: val('need'), property: val('property'), detail: val('detail'), suburb: val('suburb'),
+        timing: val('timing'), name: val('name'), phone: val('phone'), email: val('email'),
+        website: val('website'), elapsed: Date.now() - formStart, page: location.pathname,
+      };
+      const ctl = typeof AbortController === 'function' ? new AbortController() : null;
+      const timer = ctl ? setTimeout(() => ctl.abort(), 15000) : null;
+      fetch(ENQUIRY_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: ctl ? ctl.signal : undefined })
+        .then(r => r.json().then(d => ({ ok: r.ok, d })).catch(() => ({ ok: false, d: {} })))
+        .then(({ ok: good, d }) => {
+          if (timer) clearTimeout(timer);
+          if (good && d && d.ok) { showDone(); return; }
+          if (d && d.field) {
+            if (btn) { btn.disabled = false; btn.textContent = btnText; }
+            let e2 = form.querySelector('[data-de-error]');
+            if (!e2) { e2 = document.createElement('p'); e2.setAttribute('data-de-error', '1'); e2.setAttribute('role', 'alert'); e2.style.cssText = 'margin: 0 0 14px; font-weight: 700; color: var(--color-accent-700);'; btn.parentElement.insertBefore(e2, btn); }
+            e2.textContent = d.error || 'Please check your details and send it again.';
+            return;
+          }
+          viaEmail();
+        })
+        .catch(() => { if (timer) clearTimeout(timer); viaEmail(); });
     });
   }
 

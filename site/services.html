@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Services | Designed Electrics</title>
-<meta name="description" content="Solar and battery, EV chargers, heat pump hot water, generators, new home builds, rural and farm, residential / property maintenance, plumbing and gas.">
+<meta name="description" content="Solar and battery, EV chargers, heat pump hot water, generators, new home builds, rural and farm, switchboard upgrades and residential / property maintenance, plumbing and gas.">
 <link rel="canonical" href="https://designedelectrics.com.au/services">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Designed Electrics">
 <meta property="og:title" content="Services | Designed Electrics">
-<meta property="og:description" content="Solar and battery, EV chargers, heat pump hot water, generators, new home builds, rural and farm, residential / property maintenance, plumbing and gas.">
+<meta property="og:description" content="Solar and battery, EV chargers, heat pump hot water, generators, new home builds, rural and farm, switchboard upgrades and residential / property maintenance, plumbing and gas.">
 <meta property="og:url" content="https://designedelectrics.com.au/services">
 <meta property="og:image" content="https://designedelectrics.com.au/assets/og-image.jpg">
 <meta name="theme-color" content="#18171C">
@@ -287,7 +287,7 @@ class Component extends DCLogic {
   }
   boot() {
     const token = (this.token = {});
-    import('/de-motion.js?v=d2e202a3').then(m => {
+    import('/de-motion.js?v=aa4e726f').then(m => {
       if (this.token !== token) return;
       this.stop = m.initMotion(document.querySelector('[data-de-root]'), {
         level: this.props.motionLevel ?? 'full',

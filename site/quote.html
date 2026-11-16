@@ -123,6 +123,7 @@
       </div>
 
       <form data-de-form="1" action="mailto:liam@designedelectrics.com.au?subject=Quote%20request%20from%20the%20website" method="post" enctype="text/plain" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: clamp(24px, 4vw, 64px); padding-top: clamp(28px, 5vh, 52px);">
+        <div aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;"><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
 
         <div style="display: flex; flex-direction: column; gap: clamp(20px, 3vh, 30px);">
           <div data-r="up">
@@ -137,6 +138,7 @@
               <label class="seg-opt" style="flex: 1 1 auto; background: var(--color-bg); padding: 12px 16px; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; font-family: var(--font-heading); font-weight: 800;"><input type="checkbox" name="need" value="generator">Generator</label>
               <label class="seg-opt" style="flex: 1 1 auto; background: var(--color-bg); padding: 12px 16px; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; font-family: var(--font-heading); font-weight: 800;"><input type="checkbox" name="need" value="newbuild">New build</label>
               <label class="seg-opt" style="flex: 1 1 auto; background: var(--color-bg); padding: 12px 16px; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; font-family: var(--font-heading); font-weight: 800;"><input type="checkbox" name="need" value="rural">Rural / farm</label>
+              <label class="seg-opt" style="flex: 1 1 auto; background: var(--color-bg); padding: 12px 16px; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; font-family: var(--font-heading); font-weight: 800;"><input type="checkbox" name="need" value="switchboard">Switchboard</label>
               <label class="seg-opt" style="flex: 1 1 auto; background: var(--color-bg); padding: 12px 16px; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; font-family: var(--font-heading); font-weight: 800;"><input type="checkbox" name="need" value="maintenance">Maintenance</label>
               <label class="seg-opt" style="flex: 1 1 auto; background: var(--color-bg); padding: 12px 16px; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; font-family: var(--font-heading); font-weight: 800;"><input type="checkbox" name="need" value="plumbing">Plumbing / gas</label>
               <label class="seg-opt" style="flex: 1 1 auto; background: var(--color-bg); padding: 12px 16px; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; font-family: var(--font-heading); font-weight: 800;"><input type="checkbox" name="need" value="other">Something else</label>
@@ -223,9 +225,9 @@
 
       <div data-de-success="1" style="display: none; padding-top: clamp(28px, 5vh, 52px);">
         <div style="border: 2px solid var(--color-text); padding: clamp(24px, 4vw, 56px); max-width: 780px;">
-          <div style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 18px; animation: de-blink 2.4s steps(1, end) infinite;">● One more step</div>
-          <h2 style="font-size: clamp(30px, 5vw, 64px); line-height: 0.94; letter-spacing: -0.03em; text-transform: uppercase; margin: 0 0 18px;">Press send in your email.</h2>
-          <p style="font-size: clamp(15px, 1.3vw, 18px); max-width: 46ch; margin: 0 0 26px;">Your email app has opened with your details filled in. Press send and it comes straight to us. If it did not open, email <a href="mailto:liam@designedelectrics.com.au" style="color: inherit;">liam@designedelectrics.com.au</a>. If it is urgent, call <a href="tel:0438593586" style="color: inherit;">0438 593 586</a>.</p>
+          <div style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 18px; animation: de-blink 2.4s steps(1, end) infinite;" data-de-ok-kicker="1">● Received</div>
+          <h2 style="font-size: clamp(30px, 5vw, 64px); line-height: 0.94; letter-spacing: -0.03em; text-transform: uppercase; margin: 0 0 18px;" data-de-ok-title="1">Thanks. It is with us.</h2>
+          <p style="font-size: clamp(15px, 1.3vw, 18px); max-width: 46ch; margin: 0 0 26px;" data-de-ok-body="1">Your request has come straight through to us. We read every one and come back to you with the next step. If you need to add anything, email <a href="mailto:liam@designedelectrics.com.au" style="color: inherit;">liam@designedelectrics.com.au</a>. If it is urgent, call <a href="tel:0438593586" style="color: inherit;">0438 593 586</a>.</p>
           <a href="/" class="btn btn-secondary" style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 15px 24px;">Back to the start</a>
         </div>
       </div>
@@ -289,7 +291,7 @@ class Component extends DCLogic {
   }
   boot() {
     const token = (this.token = {});
-    import('/de-motion.js?v=d2e202a3').then(m => {
+    import('/de-motion.js?v=aa4e726f').then(m => {
       if (this.token !== token) return;
       this.stop = m.initMotion(document.querySelector('[data-de-root]'), {
         level: this.props.motionLevel ?? 'full',
